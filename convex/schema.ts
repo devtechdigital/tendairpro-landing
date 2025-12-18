@@ -17,3 +17,4 @@ export default defineSchema({
   }).index("by_email", ["email"])
     .index("by_type", ["type"]),
 });
+

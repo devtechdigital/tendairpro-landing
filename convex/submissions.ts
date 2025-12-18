@@ -22,3 +22,4 @@ export const submitInterest = mutation({
     return { success: true, id: submissionId };
   },
 });
+

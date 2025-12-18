@@ -84,25 +84,33 @@
             z-index: 1000;
             background: rgba(10, 10, 10, 0.95);
             border-bottom: 1px solid var(--steel);
+            overflow: visible;
         }
 
         nav .container {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             height: 70px;
+            padding-top: 8px;
+            overflow: visible;
         }
 
         .logo {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             text-decoration: none;
             color: var(--white);
+            padding-top: 0;
+            overflow: visible;
+            position: relative;
         }
 
         .logo img {
-            height: 44px;
+            height: 85px;
             width: auto;
+            display: block;
+            margin-top: 0;
         }
 
         .nav-links {
