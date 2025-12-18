@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10dr.Pro | Win the Work That Matters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --charcoal: #1a1a1a;
+            --steel: #2d2d2d;
+            --concrete: #4a4a4a;
+            --dust: #8a8a8a;
+            --chalk: #c4c4c4;
+            --white: #f5f5f5;
+            --pure-white: #ffffff;
+            --accent: #ff6b35;
+            --accent-dark: #e55a2b;
+            --warning: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Film grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .serif {
+            font-family: 'Source Serif 4', serif;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--steel);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dust);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: var(--black) !important;
+            padding: 12px 24px;
+            font-weight: 600;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-dark) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 0 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.85) 50%, rgba(10,10,10,0.95) 100%),
+                url('/mnt/user-data/uploads/1766018130655_image.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) contrast(1.1);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--steel);
+            border: 1px solid var(--concrete);
+            padding: 8px 16px;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .hero-tag .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 8vw, 96px);
+            line-height: 0.95;
+            margin-bottom: 32px;
+            animation: fadeIn 0.6s ease 0.1s backwards;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-family: 'Source Serif 4', serif;
+            font-size: 20px;
+            color: var(--chalk);
+            margin-bottom: 48px;
+            line-height: 1.7;
+            animation: fadeIn 0.6s ease 0.2s backwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            animation: fadeIn 0.6s ease 0.3s backwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 32px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateX(4px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--concrete);
+            clip-path: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            filter: grayscale(100%) contrast(1.15);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            bottom: 20px;
+            left: 20px;
+            border: 2px solid var(--accent);
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+        }
+
+        /* Stats Strip */
+        .stats-strip {
+            background: var(--charcoal);
+            border-top: 1px solid var(--steel);
+            border-bottom: 1px solid var(--steel);
+            padding: 48px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60px;
+            background: var(--steel);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 54px;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--dust);
+            margin-top: 8px;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 120px 0;
+            background: var(--black);
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .section-header h2 {
+            font-size: clamp(42px, 5vw, 64px);
+            line-height: 1.1;
+            max-width: 700px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .problem-card {
+            background: var(--charcoal);
+            border: 1px solid var(--steel);
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .problem-card.buyers::before {
+            background: var(--warning);
+        }
+
+        .problem-card.suppliers::before {
+            background: var(--accent);
+        }
+
+        .problem-card h3 {
+            font-size: 28px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .problem-card h3 .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            padding: 6px 12px;
+            background: var(--steel);
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--steel);
+            color: var(--chalk);
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            font-family: 'Source Serif 4', serif;
+        }
+
+        .problem-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .problem-list li::before {
+            content: '✕';
+            color: #ef4444;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Image Break */
+        .image-break {
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .image-break .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, var(--black) 0%, transparent 30%, transparent 70%, var(--black) 100%);
+        }
+
+        .image-break .quote {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .image-break .quote p {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(32px, 4vw, 56px);
+            letter-spacing: 0.05em;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .image-break .quote span {
+            color: var(--accent);
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 120px 0;
+            background: var(--charcoal);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            background: var(--black);
+            border: 1px solid var(--steel);
+            padding: 40px;
+            position: relative;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .feature-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 72px;
+            color: var(--steel);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            font-family: 'Source Serif 4', serif;
+            font-size: 14px;
+            color: var(--chalk);
+            line-height: 1.7;
+        }
+
+        /* Audience Sections */
+        .audience-section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .audience-section.buyers {
+            background: var(--black);
+        }
+
+        .audience-section.suppliers {
+            background: var(--charcoal);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .audience-content h2 {
+            font-size: clamp(36px, 4vw, 52px);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .audience-content h2 span {
+            color: var(--accent);
+        }
+
+        .audience-content > p {
+            font-family: 'Source Serif 4', serif;
+            font-size: 18px;
+            color: var(--chalk);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin-bottom: 48px;
+        }
+
+        .benefit-list li {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--steel);
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .benefit-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-check {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+        }
+
+        .benefit-text strong {
+            display: block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+
+        .benefit-text span {
+            font-family: 'Source Serif 4', serif;
+            font-size: 14px;
+            color: var(--dust);
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--steel);
+            border: 1px solid var(--concrete);
+            padding: 48px;
+            position: relative;
+        }
+
+        .form-card::before {
+            content: 'REGISTER';
+            position: absolute;
+            top: -12px;
+            left: 48px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            background: var(--accent);
+            color: var(--black);
+            padding: 4px 16px;
+        }
+
+        .form-card h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .form-card > p {
+            color: var(--dust);
+            font-size: 13px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--chalk);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--charcoal);
+            border: 1px solid var(--concrete);
+            color: var(--white);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--concrete);
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8a8a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        .form-group select option {
+            background: var(--charcoal);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 120px 0;
+            background: var(--black);
+        }
+
+        .comparison-table {
+            max-width: 1000px;
+            margin: 60px auto 0;
+            border: 1px solid var(--steel);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .comparison-row.header {
+            background: var(--steel);
+        }
+
+        .comparison-cell {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--steel);
+            font-size: 14px;
+        }
+
+        .comparison-cell:first-child {
+            border-right: 1px solid var(--steel);
+        }
+
+        .comparison-row.header .comparison-cell {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-row:not(.header) .comparison-cell:first-child {
+            color: var(--dust);
+            font-family: 'Source Serif 4', serif;
+        }
+
+        .comparison-row:not(.header) .comparison-cell:last-child {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .comparison-row:last-child .comparison-cell {
+            border-bottom: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--accent);
+            color: var(--black);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(42px, 5vw, 72px);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-family: 'Source Serif 4', serif;
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-dark:hover {
+            background: var(--charcoal);
+        }
+
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+            clip-path: none;
+        }
+
+        .btn-outline-dark:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            background: var(--black);
+            border-top: 1px solid var(--steel);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: var(--dust);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--charcoal);
+            border: 1px solid var(--steel);
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 32px 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header h3 {
+            font-size: 28px;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--steel);
+            background: transparent;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--dust);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--black);
+        }
+
+        .modal-body {
+            padding: 24px 32px 32px;
+        }
+
+        .modal-body > p {
+            color: var(--dust);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        /* Success State */
+        .success-message {
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            font-weight: 600;
+            clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+        }
+
+        .success-message h4 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            color: var(--dust);
+            font-family: 'Source Serif 4', serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .problem-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-cell:first-child {
+                border-right: none;
+                padding-bottom: 8px;
+            }
+
+            .comparison-cell:last-child {
+                padding-top: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--steel);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--concrete);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="10dr_logo.svg" alt="10DR.PRO">
+            </a>
+            <div class="nav-links">
+                <a href="#buyers">Buyers</a>
+                <a href="#suppliers">Suppliers</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#" class="nav-cta" onclick="openModal('supplier'); return false;">Register Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-tag">
+                        <span class="pulse"></span>
+                        Launching Soon — AU & NZ
+                    </div>
+                    <h1>STOP CHASING.<br>START <span>WINNING.</span></h1>
+                    <p class="hero-sub">AI-powered tender intelligence that cuts through the noise. Find the work that fits. Win the contracts that matter. Built for people who get things done.</p>
+                    <div class="hero-ctas">
+                        <a href="#buyers" class="btn btn-primary">I'M A BUYER →</a>
+                        <a href="#suppliers" class="btn btn-secondary">I'M A SUPPLIER →</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://cdn.midjourney.com/85add0cf-5690-49d5-875d-2e38e775ac4d/0_1.png" alt="Industrial worker">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Strip -->
+    <section class="stats-strip">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">3,300+</div>
+                    <div class="stat-label">Sources Monitored</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">41,000+</div>
+                    <div class="stat-label">Annual Tenders</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$60B+</div>
+                    <div class="stat-label">Contract Value</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">138K+</div>
+                    <div class="stat-label">Award Records</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">The Problem</div>
+                <h2>TENDERING IS BROKEN.<br>BOTH SIDES ARE LOSING.</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card buyers">
+                    <h3>BUYER PAIN <span class="tag">PROCUREMENT</span></h3>
+                    <ul class="problem-list">
+                        <li>Drowning in low-quality, misaligned submissions that waste evaluation time</li>
+                        <li>Best-fit suppliers never see your tender because discoverability is broken</li>
+                        <li>Limited insight into whether respondents can actually deliver</li>
+                        <li>Evaluation cycles drag on while good suppliers move on</li>
+                    </ul>
+                </div>
+                <div class="problem-card suppliers">
+                    <h3>SUPPLIER PAIN <span class="tag">BIDDING</span></h3>
+                    <ul class="problem-list">
+                        <li>Hours lost searching dozens of fragmented portals every week</li>
+                        <li>No way to know which tenders you can actually win before investing effort</li>
+                        <li>Generic responses that don't stand out from the pack</li>
+                        <li>Zero feedback loop—you never learn why you lost</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Break -->
+    <section class="image-break">
+        <img src="https://cdn.midjourney.com/85add0cf-5690-49d5-875d-2e38e775ac4d/0_3.png" alt="Industrial equipment">
+        <div class="overlay"></div>
+        <div class="quote">
+            <p>"WE DON'T HELP YOU FIND MORE TENDERS.<br>WE HELP YOU <span>WIN THE RIGHT ONES.</span>"</p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">The Solution</div>
+                <h2>FROM SEARCH ENGINE<br>TO <span style="color: var(--accent)">DECISION ENGINE</span></h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-number">01</div>
+                    <h3>TOTAL COVERAGE</h3>
+                    <p>One login replaces dozens of portals. We monitor 3,300+ sources across government and private sectors—RFPs, RFQs, EOIs, panels, the lot.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-number">02</div>
+                    <h3>CAPABILITY DNA</h3>
+                    <p>Build a dynamic profile across 946 industry categories. Our AI learns from your behaviour and outcomes, getting smarter with every tender.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-number">03</div>
+                    <h3>AI MATCH SCORING</h3>
+                    <p>Every tender scored against your real capabilities. Get clear confidence scores and explanations—not just alerts, but strategic direction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-number">04</div>
+                    <h3>OPPORTUNITY INTEL</h3>
+                    <p>Plain-English summaries, extracted evaluation criteria, buyer priority analysis, risk flags—all before you invest a single hour.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-number">05</div>
+                    <h3>WIN-FOCUSED GUIDANCE</h3>
+                    <p>AI-generated response frameworks tailored to each tender and your capabilities. Not generic templates—strategic scaffolding to win.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-number">06</div>
+                    <h3>OUTCOMES & INTEL</h3>
+                    <p>Track awards, monitor competitors, analyse pricing trends. Close the feedback loop and improve your win rate over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buyers Section -->
+    <section class="audience-section buyers" id="buyers">
+        <div class="container">
+            <div class="audience-grid">
+                <div class="audience-content">
+                    <div class="section-tag">For Buyers</div>
+                    <h2>BETTER RESPONSES.<br><span>LESS NOISE.</span></h2>
+                    <p>Stop wading through misaligned submissions. Attract genuinely capable suppliers who actually fit your requirements—and can deliver.</p>
+                    <ul class="benefit-list">
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>HIGHER QUALITY SHORTLISTS</strong>
+                                <span>AI surfaces your tenders to suppliers who are genuinely capable and relevant</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>LESS WASTE, MORE SIGNAL</strong>
+                                <span>Reduce speculative bids and low-quality responses that burn evaluation hours</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>FASTER DECISION CYCLES</strong>
+                                <span>Better-aligned submissions mean shorter evaluation timelines</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>IMPROVED OUTCOMES</strong>
+                                <span>The right supplier for every job. Every time.</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="openModal('buyer'); return false;">REGISTER AS BUYER →</a>
+                </div>
+                <div class="form-card">
+                    <h3>BUYER REGISTRATION</h3>
+                    <p>Help us shape smarter procurement. Join the early access list.</p>
+                    <form id="buyerFormInline" onsubmit="submitForm(event, 'buyer')">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Organisation *</label>
+                            <input type="text" name="organisation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role / Title</label>
+                            <input type="text" name="role">
+                        </div>
+                        <div class="form-group">
+                            <label>Annual Tender Volume</label>
+                            <select name="volume">
+                                <option value="">Select...</option>
+                                <option value="1-10">1–10 tenders/year</option>
+                                <option value="11-50">11–50 tenders/year</option>
+                                <option value="51-100">51–100 tenders/year</option>
+                                <option value="100+">100+ tenders/year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Biggest Procurement Pain Point</label>
+                            <textarea name="painPoints" placeholder="What frustrates you most about the current process?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit">SUBMIT INTEREST</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Break 2 -->
+    <section class="image-break">
+        <img src="https://cdn.midjourney.com/00e8b293-5062-47cd-a253-41a9887784cc/0_2.png" alt="Industrial nuts and bolts">
+        <div class="overlay"></div>
+    </section>
+
+    <!-- Suppliers Section -->
+    <section class="audience-section suppliers" id="suppliers">
+        <div class="container">
+            <div class="audience-grid" style="direction: rtl;">
+                <div class="audience-content" style="direction: ltr;">
+                    <div class="section-tag">For Suppliers</div>
+                    <h2>LESS SEARCHING.<br><span>MORE WINNING.</span></h2>
+                    <p>Tendering shouldn't feel like gambling. Focus your effort on opportunities you're actually likely to win—and know why before you start.</p>
+                    <ul class="benefit-list">
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>50–70% LESS SEARCH TIME</strong>
+                                <span>One login covers 3,300+ sources. Stop juggling portal passwords.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>AI-POWERED FIT SCORING</strong>
+                                <span>Know instantly whether a tender is worth your time—and why</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>30–50% FASTER RESPONSE PREP</strong>
+                                <span>AI frameworks tailored to each opportunity and your capabilities</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>LEARN FROM EVERY BID</strong>
+                                <span>Track outcomes, analyse competitors, improve your win rate</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="openModal('supplier'); return false;">REGISTER AS SUPPLIER →</a>
+                </div>
+                <div class="form-card" style="direction: ltr;">
+                    <h3>SUPPLIER REGISTRATION</h3>
+                    <p>Be first in line when we launch. Help us build for your industry.</p>
+                    <form id="supplierFormInline" onsubmit="submitForm(event, 'supplier')">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name *</label>
+                            <input type="text" name="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Industry</label>
+                            <select name="industry">
+                                <option value="">Select...</option>
+                                <option value="construction">Construction & Infrastructure</option>
+                                <option value="mining">Mining & Resources</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="it">IT & Technology</option>
+                                <option value="professional">Professional Services</option>
+                                <option value="health">Health & Medical</option>
+                                <option value="logistics">Logistics & Transport</option>
+                                <option value="facilities">Facilities & Maintenance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tenders Per Year</label>
+                            <select name="volume">
+                                <option value="">Select...</option>
+                                <option value="1-5">1–5</option>
+                                <option value="6-20">6–20</option>
+                                <option value="21-50">21–50</option>
+                                <option value="50+">50+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>What Would Make Tendering Easier?</label>
+                            <textarea name="painPoints" placeholder="Tell us about your challenges with finding and winning work..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit">SUBMIT INTEREST</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-tag" style="justify-content: center;">
+                    <span></span>Why 10dr.Pro
+                </div>
+                <h2 style="margin: 0 auto;">NOT ANOTHER LISTING SERVICE</h2>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-row header">
+                    <div class="comparison-cell">THE OLD WAY</div>
+                    <div class="comparison-cell">THE 10DR.PRO WAY</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Search & basic alerts</div>
+                    <div class="comparison-cell">Decision & execution guidance</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Volume-based listings</div>
+                    <div class="comparison-cell">Fit-based prioritisation</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Manual evaluation required</div>
+                    <div class="comparison-cell">AI-powered opportunity analysis</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Static keyword filters</div>
+                    <div class="comparison-cell">Learning capability models</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">No outcome tracking</div>
+                    <div class="comparison-cell">Full market intelligence loop</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>READY TO WIN?</h2>
+                <p>Join the early access program. Help shape smarter procurement across Australia & New Zealand.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-dark" onclick="openModal('buyer'); return false;">REGISTER AS BUYER</a>
+                    <a href="#" class="btn btn-outline-dark" onclick="openModal('supplier'); return false;">REGISTER AS SUPPLIER</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo">
+                    <div class="logo-mark">10</div>
+                    <div class="logo-text">10DR.PRO</div>
+                </a>
+                <div class="footer-links">
+                    <a href="#buyers">Buyers</a>
+                    <a href="#suppliers">Suppliers</a>
+                    <a href="mailto:hello@10dr.pro">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: Buyer -->
+    <div class="modal-overlay" id="buyerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>BUYER REGISTRATION</h3>
+                <button class="modal-close" onclick="closeModal('buyer')">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Join our early access program and help shape smarter procurement.</p>
+                <form id="buyerFormModal" onsubmit="submitForm(event, 'buyer')">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Organisation *</label>
+                        <input type="text" name="organisation" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Title</label>
+                        <input type="text" name="role">
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Tender Volume</label>
+                        <select name="volume">
+                            <option value="">Select...</option>
+                            <option value="1-10">1–10 tenders/year</option>
+                            <option value="11-50">11–50 tenders/year</option>
+                            <option value="51-100">51–100 tenders/year</option>
+                            <option value="100+">100+ tenders/year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Biggest Pain Point</label>
+                        <textarea name="painPoints" placeholder="What frustrates you most?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">SUBMIT INTEREST</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Supplier -->
+    <div class="modal-overlay" id="supplierModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>SUPPLIER REGISTRATION</h3>
+                <button class="modal-close" onclick="closeModal('supplier')">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Be first in line when we launch. Help us build for your industry.</p>
+                <form id="supplierFormModal" onsubmit="submitForm(event, 'supplier')">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name *</label>
+                        <input type="text" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Industry</label>
+                        <select name="industry">
+                            <option value="">Select...</option>
+                            <option value="construction">Construction & Infrastructure</option>
+                            <option value="mining">Mining & Resources</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="it">IT & Technology</option>
+                            <option value="professional">Professional Services</option>
+                            <option value="health">Health & Medical</option>
+                            <option value="logistics">Logistics & Transport</option>
+                            <option value="facilities">Facilities & Maintenance</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tenders Per Year</label>
+                        <select name="volume">
+                            <option value="">Select...</option>
+                            <option value="1-5">1–5</option>
+                            <option value="6-20">6–20</option>
+                            <option value="21-50">21–50</option>
+                            <option value="50+">50+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>What Would Help Most?</label>
+                        <textarea name="painPoints" placeholder="Tell us about your challenges..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">SUBMIT INTEREST</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => {
+                    m.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
+        function submitForm(event, type) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.type = type;
+            data.timestamp = new Date().toISOString();
+            
+            console.log('Form submission:', data);
+            
+            const container = form.parentElement;
+            container.innerHTML = `
+                <div class="success-message">
+                    <div class="success-icon">✓</div>
+                    <h4>YOU'RE ON THE LIST</h4>
+                    <p>We'll be in touch as we get closer to launch. Thanks for your interest.</p>
+                </div>
+            `;
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

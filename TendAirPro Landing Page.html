@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TendAirPro | AI-Powered Tender Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0a1628;
+            --ink-light: #1e3a5f;
+            --slate: #64748b;
+            --mist: #f1f5f9;
+            --cloud: #ffffff;
+            --accent: #0891b2;
+            --accent-dark: #0e7490;
+            --accent-glow: rgba(8, 145, 178, 0.15);
+            --buyer: #7c3aed;
+            --buyer-glow: rgba(124, 58, 237, 0.1);
+            --supplier: #059669;
+            --supplier-glow: rgba(5, 150, 105, 0.1);
+            --gold: #d97706;
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cloud);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(10, 22, 40, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            background: var(--ink);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 22, 40, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(180deg, var(--mist) 0%, var(--cloud) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--accent-glow) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--buyer-glow) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--cloud);
+            border: 1px solid rgba(10, 22, 40, 0.1);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--slate);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--supplier);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 20px;
+            color: var(--slate);
+            max-width: 640px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 28px;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10, 22, 40, 0.25);
+        }
+
+        .btn-secondary {
+            background: var(--cloud);
+            color: var(--ink);
+            border: 1px solid rgba(10, 22, 40, 0.15);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--ink);
+        }
+
+        .btn-buyer {
+            background: var(--buyer);
+            color: white;
+        }
+
+        .btn-buyer:hover {
+            background: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-supplier {
+            background: var(--supplier);
+            color: white;
+        }
+
+        .btn-supplier:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(10, 22, 40, 0.06);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--slate);
+            margin-top: 4px;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 100px 0;
+            background: var(--ink);
+            color: white;
+            position: relative;
+        }
+
+        .problem-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, var(--cloud) 0%, var(--ink) 100%);
+        }
+
+        .problem-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .problem-section h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 60px;
+            max-width: 700px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+
+        .problem-card h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .problem-card h3 .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .problem-card.buyer h3 .icon {
+            background: var(--buyer-glow);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        .problem-card.supplier h3 .icon {
+            background: var(--supplier-glow);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .problem-list li:last-child {
+            border-bottom: none;
+        }
+
+        .problem-list li::before {
+            content: '×';
+            color: #ef4444;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 100px 0;
+        }
+
+        .solution-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .solution-header h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 20px;
+        }
+
+        .solution-header p {
+            font-size: 18px;
+            color: var(--slate);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--mist);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(10, 22, 40, 0.1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--cloud);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(10, 22, 40, 0.06);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--slate);
+        }
+
+        /* Audience Sections */
+        .audience-section {
+            padding: 100px 0;
+        }
+
+        .audience-section.buyers {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.04) 0%, rgba(124, 58, 237, 0.01) 100%);
+        }
+
+        .audience-section.suppliers {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0.01) 100%);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .audience-content h2 {
+            font-size: clamp(28px, 3.5vw, 40px);
+            margin-bottom: 24px;
+        }
+
+        .buyers .audience-content h2 {
+            color: var(--buyer);
+        }
+
+        .suppliers .audience-content h2 {
+            color: var(--supplier);
+        }
+
+        .audience-content > p {
+            font-size: 18px;
+            color: var(--slate);
+            margin-bottom: 32px;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .benefit-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(10, 22, 40, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .benefit-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+            color: white;
+        }
+
+        .buyers .benefit-check {
+            background: var(--buyer);
+        }
+
+        .suppliers .benefit-check {
+            background: var(--supplier);
+        }
+
+        .benefit-text strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .benefit-text span {
+            font-size: 14px;
+            color: var(--slate);
+        }
+
+        /* Form Styles */
+        .form-card {
+            background: var(--cloud);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(10, 22, 40, 0.1);
+            border: 1px solid rgba(10, 22, 40, 0.06);
+        }
+
+        .form-card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .form-card > p {
+            color: var(--slate);
+            margin-bottom: 32px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(10, 22, 40, 0.15);
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--cloud);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Differentiator Section */
+        .diff-section {
+            padding: 100px 0;
+            background: var(--mist);
+        }
+
+        .diff-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .diff-header h2 {
+            font-size: clamp(28px, 3.5vw, 40px);
+            margin-bottom: 16px;
+        }
+
+        .comparison-table {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--cloud);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(10, 22, 40, 0.08);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .comparison-row.header {
+            background: var(--ink);
+            color: white;
+        }
+
+        .comparison-cell {
+            padding: 20px 32px;
+            border-bottom: 1px solid rgba(10, 22, 40, 0.06);
+        }
+
+        .comparison-row.header .comparison-cell {
+            font-family: 'Fraunces', serif;
+            font-size: 18px;
+            font-weight: 500;
+            border-bottom: none;
+        }
+
+        .comparison-cell:first-child {
+            border-right: 1px solid rgba(10, 22, 40, 0.06);
+        }
+
+        .comparison-row:not(.header) .comparison-cell:first-child {
+            color: var(--slate);
+        }
+
+        .comparison-row:not(.header) .comparison-cell:last-child {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .comparison-row:last-child .comparison-cell {
+            border-bottom: none;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .quote-block {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-mark {
+            font-size: 80px;
+            font-family: 'Fraunces', serif;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: -20px;
+        }
+
+        .quote-text {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(24px, 3vw, 36px);
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--ink);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 3.5vw, 44px);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            background: var(--ink);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            color: white;
+        }
+
+        .footer-logo .logo-text {
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--cloud);
+            border-radius: var(--radius-lg);
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 32px 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--mist);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--slate);
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--ink);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 24px 32px 32px;
+        }
+
+        .modal-body > p {
+            color: var(--slate);
+            margin-bottom: 24px;
+        }
+
+        /* Success State */
+        .success-message {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--supplier-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        .success-message h4 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            color: var(--slate);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .problem-grid,
+            .audience-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-cell:first-child {
+                border-right: none;
+                padding-bottom: 8px;
+                font-size: 14px;
+            }
+
+            .comparison-cell:last-child {
+                padding-top: 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-mark">T</div>
+                <div class="logo-text">Tend<span>Air</span>Pro</div>
+            </a>
+            <div class="nav-links">
+                <a href="#buyers">For Buyers</a>
+                <a href="#suppliers">For Suppliers</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#" class="nav-cta" onclick="openModal('buyer')">Register Interest</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Launching Soon — Australia & New Zealand
+                </div>
+                <h1>Stop searching for tenders.<br>Start <em>winning</em> them.</h1>
+                <p class="hero-sub">AI-powered tender intelligence that connects the right buyers with the right suppliers—faster, with better outcomes on both sides.</p>
+                <div class="hero-ctas">
+                    <a href="#" class="btn btn-buyer" onclick="openModal('buyer'); return false;">I'm a Buyer</a>
+                    <a href="#" class="btn btn-supplier" onclick="openModal('supplier'); return false;">I'm a Supplier</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-banner">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">3,300+</div>
+                    <div class="stat-label">Tender sources monitored</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">41,000+</div>
+                    <div class="stat-label">Annual tenders AU & NZ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$60B+</div>
+                    <div class="stat-label">Annual contract value</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">138K+</div>
+                    <div class="stat-label">Historical award records</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="problem-content">
+                <div class="section-label">The Problem</div>
+                <h2>Tendering is broken.<br>Both sides are losing.</h2>
+                <div class="problem-grid">
+                    <div class="problem-card buyer">
+                        <h3><span class="icon">📋</span> Buyer Pain Points</h3>
+                        <ul class="problem-list">
+                            <li>Drowning in low-quality, misaligned submissions</li>
+                            <li>Best-fit suppliers never even see your tender</li>
+                            <li>Evaluation cycles drag on and on</li>
+                            <li>Limited visibility into supplier capability fit</li>
+                        </ul>
+                    </div>
+                    <div class="problem-card supplier">
+                        <h3><span class="icon">🔍</span> Supplier Pain Points</h3>
+                        <ul class="problem-list">
+                            <li>Hours lost searching fragmented portals</li>
+                            <li>Wasted effort on low-probability bids</li>
+                            <li>No insight into why you won or lost</li>
+                            <li>Generic responses that don't stand out</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section" id="how-it-works">
+        <div class="container">
+            <div class="solution-header">
+                <div class="section-label">The Solution</div>
+                <h2>From search engine to decision engine</h2>
+                <p>Traditional platforms answer "What tenders exist?" We answer "Which tenders should you pursue—and how should you win?"</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Total Market Coverage</h3>
+                    <p>One login replaces dozens of portals. We monitor 3,300+ sources across government and private sectors, normalised into a single, searchable dataset.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <h3>Capability DNA Profiling</h3>
+                    <p>Build a dynamic supplier profile across 946 industry categories. Our AI learns from your behaviour and outcomes to refine matches over time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>AI Match Scoring</h3>
+                    <p>Every tender scored against your real capabilities. Get clear confidence scores and explanations—not just alerts, but strategic direction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Opportunity Intelligence</h3>
+                    <p>Plain-English summaries, extracted evaluation criteria, buyer priority analysis, and risk flags—all before you invest a single hour.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Win-Focused Response Guidance</h3>
+                    <p>AI-generated response frameworks tailored to each tender and your capabilities. Not generic templates—strategic scaffolding to win.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Outcomes & Market Intel</h3>
+                    <p>Track awards, monitor competitors, analyse pricing trends, and learn from every bid. Close the feedback loop and improve continuously.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buyers Section -->
+    <section class="audience-section buyers" id="buyers">
+        <div class="container">
+            <div class="audience-grid">
+                <div class="audience-content">
+                    <div class="section-label">For Buyers & Procurement Teams</div>
+                    <h2>Better responses, faster—with less evaluation effort</h2>
+                    <p>Stop wading through misaligned submissions. Attract genuinely capable suppliers who actually fit your requirements.</p>
+                    <ul class="benefit-list">
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>Higher quality shortlists</strong>
+                                <span>AI surfaces your tenders to suppliers who are genuinely capable and relevant</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>Less noise, more signal</strong>
+                                <span>Reduce speculative bids and low-quality responses that waste evaluation time</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>Faster decision timelines</strong>
+                                <span>Better-aligned submissions mean shorter evaluation cycles</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>Improved procurement outcomes</strong>
+                                <span>The right supplier for every job, every time</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-buyer" onclick="openModal('buyer'); return false;">Register as a Buyer →</a>
+                </div>
+                <div class="form-card">
+                    <h3>Buyer Interest Form</h3>
+                    <p>Help us shape the platform for your procurement needs.</p>
+                    <form id="buyerFormInline" onsubmit="submitForm(event, 'buyer')">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Organisation *</label>
+                            <input type="text" name="organisation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role / Title</label>
+                            <input type="text" name="role">
+                        </div>
+                        <div class="form-group">
+                            <label>Approx. annual tender volume</label>
+                            <select name="volume">
+                                <option value="">Select...</option>
+                                <option value="1-10">1–10 tenders/year</option>
+                                <option value="11-50">11–50 tenders/year</option>
+                                <option value="51-100">51–100 tenders/year</option>
+                                <option value="100+">100+ tenders/year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>What's your biggest procurement pain point?</label>
+                            <textarea name="painPoints" placeholder="Tell us what frustrates you most about the current process..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-buyer form-submit">Submit Interest</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suppliers Section -->
+    <section class="audience-section suppliers" id="suppliers">
+        <div class="container">
+            <div class="audience-grid">
+                <div class="form-card" style="order: 2;">
+                    <h3>Supplier Interest Form</h3>
+                    <p>Be first in line when we launch. Help us build for your industry.</p>
+                    <form id="supplierFormInline" onsubmit="submitForm(event, 'supplier')">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name *</label>
+                            <input type="text" name="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Industry</label>
+                            <select name="industry">
+                                <option value="">Select...</option>
+                                <option value="construction">Construction & Infrastructure</option>
+                                <option value="it">IT & Technology</option>
+                                <option value="professional">Professional Services</option>
+                                <option value="health">Health & Medical</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="logistics">Logistics & Transport</option>
+                                <option value="facilities">Facilities & Maintenance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Approx. tenders you respond to per year</label>
+                            <select name="volume">
+                                <option value="">Select...</option>
+                                <option value="1-5">1–5</option>
+                                <option value="6-20">6–20</option>
+                                <option value="21-50">21–50</option>
+                                <option value="50+">50+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>What would make tendering easier for you?</label>
+                            <textarea name="painPoints" placeholder="Tell us about your challenges with finding and winning tenders..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-supplier form-submit">Submit Interest</button>
+                    </form>
+                </div>
+                <div class="audience-content" style="order: 1;">
+                    <div class="section-label">For Suppliers & Service Providers</div>
+                    <h2>Spend less time searching.<br>More time winning.</h2>
+                    <p>Tendering shouldn't feel like gambling. Focus your effort on opportunities you're actually likely to win.</p>
+                    <ul class="benefit-list">
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>50–70% less search time</strong>
+                                <span>One login covers 3,300+ sources. Stop juggling portal passwords.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>AI-powered fit scoring</strong>
+                                <span>Know instantly whether a tender is worth your time—and why</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>30–50% faster response prep</strong>
+                                <span>AI-generated frameworks tailored to each opportunity and your capabilities</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-check">✓</span>
+                            <div class="benefit-text">
+                                <strong>Learn from every bid</strong>
+                                <span>Track outcomes, analyse competitors, improve your win rate over time</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-supplier" onclick="openModal('supplier'); return false;">Register as a Supplier →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiator Section -->
+    <section class="diff-section">
+        <div class="container">
+            <div class="diff-header">
+                <div class="section-label">Why TendAirPro</div>
+                <h2>Not just another tender listing service</h2>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-row header">
+                    <div class="comparison-cell">Traditional Platforms</div>
+                    <div class="comparison-cell">TendAirPro</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Search & alerts</div>
+                    <div class="comparison-cell">Decision & execution guidance</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Volume-based listings</div>
+                    <div class="comparison-cell">Fit-based prioritisation</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Manual evaluation required</div>
+                    <div class="comparison-cell">AI-powered opportunity analysis</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Static keyword filters</div>
+                    <div class="comparison-cell">Learning capability models</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">No outcome tracking</div>
+                    <div class="comparison-cell">Full market intelligence & feedback loop</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-block">
+                <div class="quote-mark">"</div>
+                <p class="quote-text">We don't help you find more tenders.<br>We help you win the right ones.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to transform how you tender?</h2>
+            <p>Join the early access program and help shape the future of smarter procurement across Australia & New Zealand.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-buyer" onclick="openModal('buyer'); return false;">Register as Buyer</a>
+                <a href="#" class="btn btn-supplier" onclick="openModal('supplier'); return false;">Register as Supplier</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo footer-logo">
+                    <div class="logo-mark">T</div>
+                    <div class="logo-text">Tend<span>Air</span>Pro</div>
+                </a>
+                <div class="footer-links">
+                    <a href="#buyers">For Buyers</a>
+                    <a href="#suppliers">For Suppliers</a>
+                    <a href="mailto:hello@tendairpro.com">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: Buyer -->
+    <div class="modal-overlay" id="buyerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Buyer Registration</h3>
+                <button class="modal-close" onclick="closeModal('buyer')">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Join our early access program and help shape smarter procurement.</p>
+                <form id="buyerFormModal" onsubmit="submitForm(event, 'buyer')">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Organisation *</label>
+                        <input type="text" name="organisation" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Title</label>
+                        <input type="text" name="role">
+                    </div>
+                    <div class="form-group">
+                        <label>Approx. annual tender volume</label>
+                        <select name="volume">
+                            <option value="">Select...</option>
+                            <option value="1-10">1–10 tenders/year</option>
+                            <option value="11-50">11–50 tenders/year</option>
+                            <option value="51-100">51–100 tenders/year</option>
+                            <option value="100+">100+ tenders/year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>What's your biggest procurement pain point?</label>
+                        <textarea name="painPoints" placeholder="Tell us what frustrates you most..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-buyer form-submit">Submit Interest</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Supplier -->
+    <div class="modal-overlay" id="supplierModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Supplier Registration</h3>
+                <button class="modal-close" onclick="closeModal('supplier')">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Be first in line when we launch. Help us build for your industry.</p>
+                <form id="supplierFormModal" onsubmit="submitForm(event, 'supplier')">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name *</label>
+                        <input type="text" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Industry</label>
+                        <select name="industry">
+                            <option value="">Select...</option>
+                            <option value="construction">Construction & Infrastructure</option>
+                            <option value="it">IT & Technology</option>
+                            <option value="professional">Professional Services</option>
+                            <option value="health">Health & Medical</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="logistics">Logistics & Transport</option>
+                            <option value="facilities">Facilities & Maintenance</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Approx. tenders you respond to per year</label>
+                        <select name="volume">
+                            <option value="">Select...</option>
+                            <option value="1-5">1–5</option>
+                            <option value="6-20">6–20</option>
+                            <option value="21-50">21–50</option>
+                            <option value="50+">50+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>What would make tendering easier for you?</label>
+                        <textarea name="painPoints" placeholder="Tell us about your challenges..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-supplier form-submit">Submit Interest</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => {
+                    m.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
+        function submitForm(event, type) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.type = type;
+            data.timestamp = new Date().toISOString();
+            
+            // Log to console (replace with actual API call)
+            console.log('Form submission:', data);
+            
+            // Show success state
+            const container = form.parentElement;
+            container.innerHTML = `
+                <div class="success-message">
+                    <div class="success-icon">✓</div>
+                    <h4>You're on the list!</h4>
+                    <p>Thanks for registering your interest. We'll be in touch as we get closer to launch.</p>
+                </div>
+            `;
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Nav shadow on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(10, 22, 40, 0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
