@@ -7,3 +7,9 @@
 .idea/
 *.swp
 *.swo
+
+# Dependencies
+node_modules/
+
+# Environment
+.env.local

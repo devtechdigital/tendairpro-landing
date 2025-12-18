@@ -30,7 +30,7 @@ The core differentiator is not just *finding tenders*, but **connecting the righ
 ### 3.1 Tender Aggregation & Market Coverage
 
 **What it does:**
-- Monitors **3,300+ public and private sources** across AU & NZ
+- Monitors **3,000+ public and private sources** across AU & NZ
 - Covers RFPs, RFQs, RFIs, EOIs, panel refreshes, pre‑market engagement
 - Normalises data into a single structured format
 
@@ -59,7 +59,7 @@ The core differentiator is not just *finding tenders*, but **connecting the righ
 - Supplier creates a **capability DNA profile**:
   - Locations
   - Keywords & exclusions
-  - 946 industry categories & sub‑categories
+  - 900+ industry categories & sub‑categories
   - Certifications, accreditations, insurances
   - Past project types & contract values
 

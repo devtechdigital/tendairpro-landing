@@ -1102,7 +1102,7 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">3,300+</div>
+                    <div class="stat-number">3,000+</div>
                     <div class="stat-label">Sources Monitored</div>
                 </div>
                 <div class="stat-item">
@@ -1171,12 +1171,12 @@
                 <div class="feature-card">
                     <div class="feature-number">01</div>
                     <h3>TOTAL COVERAGE</h3>
-                    <p>One login replaces dozens of portals. We monitor 3,300+ sources across government and private sectors—RFPs, RFQs, EOIs, panels, the lot.</p>
+                    <p>One login replaces dozens of portals. We monitor 3,000+ sources across government and private sectors—RFPs, RFQs, EOIs, panels, the lot.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-number">02</div>
                     <h3>CAPABILITY DNA</h3>
-                    <p>Build a dynamic profile across 946 industry categories. Our AI learns from your behaviour and outcomes, getting smarter with every tender.</p>
+                    <p>Build a dynamic profile across 900+ industry categories. Our AI learns from your behaviour and outcomes, getting smarter with every tender.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-number">03</div>
@@ -1308,7 +1308,7 @@
                             <span class="benefit-check">✓</span>
                             <div class="benefit-text">
                                 <strong>50–70% LESS SEARCH TIME</strong>
-                                <span>One login covers 3,300+ sources. Stop juggling portal passwords.</span>
+                                <span>One login covers 3,000+ sources. Stop juggling portal passwords.</span>
                             </div>
                         </li>
                         <li>
@@ -1450,7 +1450,7 @@
         <div class="container">
             <div class="footer-content">
                 <a href="#" class="logo">
-                    <div class="logo-mark">10</div>
+                    <div class="logo-mark"></div>
                     <div class="logo-text">10DR.PRO</div>
                 </a>
                 <div class="footer-links">
@@ -1608,24 +1608,49 @@
             }
         });
 
-        function submitForm(event, type) {
+        const CONVEX_URL = 'https://expert-chicken-511.convex.site';
+
+        async function submitForm(event, type) {
             event.preventDefault();
             const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             data.type = type;
-            data.timestamp = new Date().toISOString();
-            
-            console.log('Form submission:', data);
-            
-            const container = form.parentElement;
-            container.innerHTML = `
-                <div class="success-message">
-                    <div class="success-icon">✓</div>
-                    <h4>YOU'RE ON THE LIST</h4>
-                    <p>We'll be in touch as we get closer to launch. Thanks for your interest.</p>
-                </div>
-            `;
+
+            try {
+                const response = await fetch(`${CONVEX_URL}/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const container = form.parentElement;
+                    container.innerHTML = `
+                        <div class="success-message">
+                            <div class="success-icon">✓</div>
+                            <h4>YOU'RE ON THE LIST</h4>
+                            <p>We'll be in touch as we get closer to launch. Thanks for your interest.</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+                alert('Something went wrong. Please try again.');
+            }
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
